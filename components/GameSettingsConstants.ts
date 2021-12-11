@@ -4,8 +4,6 @@ import { Dimensions } from 'react-native'
 const { width, height } = Dimensions.get('screen')
 
 export const BALL_SIZE = 50
-export const PLANK_HEIGHT = 70
-export const PLANK_WIDTH = 20
 
 export const GAME_WIDTH = width
 export const GAME_HEIGHT = height
@@ -13,8 +11,6 @@ export const GAME_HEIGHT = height
 export const BALL_START_POINT_X = GAME_WIDTH / 2
 export const BALL_START_POINT_Y = GAME_HEIGHT / 2
 export const BORDER = 15
-
-export const WINNING_SCORE = 5
 
 export const wallSettings: Matter.IBodyDefinition = {
 	isStatic: true,
