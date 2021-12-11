@@ -24,6 +24,7 @@ import {
 import CustomButton from '../components/CustomButton'
 import { Input, ListItem } from 'react-native-elements'
 import { ScreenWidth } from 'react-native-elements/dist/helpers'
+import { LinearGradient } from 'expo-linear-gradient'
 
 export default function HighScoreList() {
 	// InitializeFirebasewithyourown config parameters
@@ -126,38 +127,40 @@ export default function HighScoreList() {
 
 	return (
 		<View style={styles.container}>
-			<Text>High score list!</Text>
-			<Text style={styles.highScoreItem}>{'High score list'}</Text>
-			<FlatList
-				data={list}
-				contentContainerStyle={{
-					flex: 1,
-					justifyContent: 'flex-start',
-					alignItems: 'center',
-				}}
-				renderItem={({ item }: any) => {
-					return (
-						<ListItem
-							style={{ width: ScreenWidth * 0.95 }}
-							key={item.id}
-							bottomDivider
-						>
-							<ListItem.Content>
-								<ListItem.Title>{item.product}</ListItem.Title>
-								<ListItem.Subtitle>{item.amount}</ListItem.Subtitle>
-							</ListItem.Content>
-							<ListItem.Chevron
-								name='trash'
-								tvParallaxProperties={undefined}
-								color={'red'}
-								size={20}
-								style={{ marginLeft: 'auto' }}
-								onPress={() => deleteItem(item.id)}
-							/>
-						</ListItem>
-					)
-				}}
-			/>
+			<LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']}>
+				<Text>High score list!</Text>
+				<Text style={styles.highScoreItem}>{'High score list'}</Text>
+				<FlatList
+					data={list}
+					contentContainerStyle={{
+						flex: 1,
+						justifyContent: 'flex-start',
+						alignItems: 'center',
+					}}
+					renderItem={({ item }: any) => {
+						return (
+							<ListItem
+								style={{ width: ScreenWidth * 0.95 }}
+								key={item.id}
+								bottomDivider
+							>
+								<ListItem.Content>
+									<ListItem.Title>{item.product}</ListItem.Title>
+									<ListItem.Subtitle>{item.amount}</ListItem.Subtitle>
+								</ListItem.Content>
+								<ListItem.Chevron
+									name='trash'
+									tvParallaxProperties={undefined}
+									color={'red'}
+									size={20}
+									style={{ marginLeft: 'auto' }}
+									onPress={() => deleteItem(item.id)}
+								/>
+							</ListItem>
+						)
+					}}
+				/>
+			</LinearGradient>
 		</View>
 	)
 }

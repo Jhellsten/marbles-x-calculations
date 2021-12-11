@@ -42,15 +42,40 @@ export const ball = Matter.Bodies.circle(
 	}
 )
 
-export const blackHole = Matter.Bodies.circle(
+export const collectable = Matter.Bodies.circle(
 	BALL_START_POINT_X - 100,
 	BALL_START_POINT_Y - 100,
 	1,
+	{
+		label: 'collectable',
+		isSensor: true,
+	}
+)
+export const blackHole = Matter.Bodies.circle(
+	BALL_START_POINT_X - 100,
+	BALL_START_POINT_Y - 100,
+	BALL_SIZE,
 	{
 		label: 'blackHole',
 		isSensor: true,
 		mass: 200,
 		density: 1,
+	}
+)
+export const hittableBall = Matter.Bodies.circle(
+	BALL_START_POINT_X + 100,
+	BALL_START_POINT_Y + 100,
+	BALL_SIZE,
+	{
+		label: 'hittable',
+		isSensor: true,
+		mass: 1,
+		density: 1,
+		inertia: 0.1,
+		friction: 0,
+		frictionStatic: 0,
+		frictionAir: 0.005,
+		restitution: 1,
 	}
 )
 

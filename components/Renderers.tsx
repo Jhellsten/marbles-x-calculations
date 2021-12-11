@@ -1,6 +1,8 @@
 import React, { PureComponent, useEffect, useState } from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, Image } from 'react-native'
 import Animated, { Easing, EasingNode } from 'react-native-reanimated'
+import { BALL_SIZE } from './GameSettingsConstants'
+const ballImg = require('../assets/cannon_ball.png')
 
 const Box = ({ body, size, xAdjustment, yAdjustment, color }: any) => {
 	const width = size[0]
@@ -31,7 +33,14 @@ type FingerProps = {
 	position: [number, number]
 }
 
-const Circle = ({ body, size, xAdjustment, yAdjustment, color }: any) => {
+const Circle = ({
+	body,
+	size,
+	xAdjustment,
+	yAdjustment,
+	color,
+	number,
+}: any) => {
 	const width = size[0]
 	const height = size[1]
 	const xAdjust = xAdjustment ? xAdjustment : 0
@@ -39,8 +48,20 @@ const Circle = ({ body, size, xAdjustment, yAdjustment, color }: any) => {
 
 	const x = body.position.x - width / 2 + xAdjust
 	const y = body.position.y - height / 2 - yAdjust
-
-	return (
+	return color === 'ball' ? (
+		<Animated.Image
+			style={{
+				position: 'absolute',
+				left: x,
+				top: y,
+				width: width,
+				height: height,
+				borderRadius: 25,
+				zIndex: 100,
+			}}
+			source={ballImg}
+		/>
+	) : (
 		<View
 			style={{
 				position: 'absolute',
@@ -50,19 +71,19 @@ const Circle = ({ body, size, xAdjustment, yAdjustment, color }: any) => {
 				height: height,
 				backgroundColor: color,
 				borderRadius: 25,
-				borderColor: 'pink',
-				borderWidth: 1,
 			}}
-		></View>
+		>
+			<Text
+				style={{
+					textAlign: 'center',
+					fontSize: 10,
+					marginTop: BALL_SIZE / 2 - 5,
+				}}
+			>
+				{number}
+			</Text>
+		</View>
 	)
-}
-
-class Finger extends PureComponent<FingerProps> {
-	render() {
-		const x = this.props.position[0] - RADIUS / 2
-		const y = this.props.position[1] - RADIUS / 2
-		return <View style={[styles.finger, { left: x, top: y }]} />
-	}
 }
 
 export default function NumberItem({
@@ -75,14 +96,14 @@ export default function NumberItem({
 	const x = position[0] - RADIUS / 2
 	const y = position[1] - RADIUS / 2
 	return (
-		<View style={[styles.finger, { left: x, top: y }]}>
+		<View style={[styles.numberItem, { left: x, top: y }]}>
 			<Text>{`${number}`}</Text>
 		</View>
 	)
 }
 
 const styles = StyleSheet.create({
-	finger: {
+	numberItem: {
 		borderColor: '#CCC',
 		borderWidth: 4,
 		borderRadius: RADIUS * 2,
@@ -93,4 +114,4 @@ const styles = StyleSheet.create({
 	},
 })
 
-export { Box, Finger, Circle }
+export { Box, Circle }

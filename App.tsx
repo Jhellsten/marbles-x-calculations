@@ -10,7 +10,7 @@ import HighScoreList from './Screens/HighScoreList'
 
 export type RootStackParamList = {
 	Home: undefined
-	Game: { difficulty: 'easy' | 'hard' }
+	'Marbles game': { difficulty: 'easy' | 'hard' }
 	'High Score List': undefined
 }
 
@@ -23,9 +23,13 @@ export default function App() {
 
 	return (
 		<NavigationContainer>
-			<Stack.Navigator>
+			<Stack.Navigator screenOptions={{ animationEnabled: true }}>
 				<Stack.Screen name='Home' component={Home} />
-				<Stack.Screen name='Game' component={Game} />
+				<Stack.Screen
+					name='Marbles game'
+					component={Game}
+					options={{ headerLeft: () => <></> }}
+				/>
 				<Stack.Screen name='High Score List' component={HighScoreList} />
 			</Stack.Navigator>
 		</NavigationContainer>

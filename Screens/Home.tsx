@@ -2,21 +2,23 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { StatusBar } from 'expo-status-bar'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { ScreenWidth } from 'react-native-elements/dist/helpers'
 import { RouteNavigationProps } from '../App'
 import CustomButton from '../components/CustomButton'
 
 export default function Home({ navigation }: RouteNavigationProps<'Home'>) {
 	return (
 		<View style={styles.container}>
-			<LinearGradient // Button Linear Gradient
-				colors={['#4c669f', '#3b5998', '#192f6a']}
-			>
+			<LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']}>
 				<View style={styles.buttonContainer}>
+					<Text style={styles.title}>{'Marbles'}</Text>
+					<Text style={styles.title}>{'X'}</Text>
+					<Text style={[styles.title, styles.lastTitle]}>{'Calculations'}</Text>
 					<View style={styles.button}>
 						<CustomButton
 							text={'Easy Game'}
 							handlePress={() =>
-								navigation.navigate('Game', { difficulty: 'easy' })
+								navigation.navigate('Marbles game', { difficulty: 'easy' })
 							}
 						/>
 					</View>
@@ -24,7 +26,7 @@ export default function Home({ navigation }: RouteNavigationProps<'Home'>) {
 						<CustomButton
 							text={'Hard Game'}
 							handlePress={() =>
-								navigation.navigate('Game', { difficulty: 'hard' })
+								navigation.navigate('Marbles game', { difficulty: 'hard' })
 							}
 						/>
 					</View>
@@ -53,9 +55,10 @@ const styles = StyleSheet.create({
 		marginBottom: '5%',
 	},
 	buttonContainer: {
+		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'space-around',
-		marginBottom: '5%',
+		justifyContent: 'center',
+		width: ScreenWidth,
 	},
 	button: {
 		marginVertical: 10,
@@ -68,5 +71,12 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		alignItems: 'center',
 		justifyContent: 'center',
+	},
+	title: {
+		color: '#fff',
+		fontSize: 30,
+	},
+	lastTitle: {
+		marginBottom: '20%',
 	},
 })
