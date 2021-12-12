@@ -1,27 +1,37 @@
-# TypeScript Example
+# Marbles x Calculations game
 
-<p>
-  <!-- iOS -->
-  <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
-  <!-- Android -->
-  <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
-  <!-- Web -->
-  <img alt="Supports Expo Web" longdesc="Supports Expo Web" src="https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff" />
-</p>
+This is a simple game build with Expo, Expo DeviceMotion, React Native Game Engine and Matter.js.
 
-```sh
-npx create-react-native-app -t with-typescript
-```
+Firebase firestore is optional for storing highscores.
 
-TypeScript is a superset of JavaScript which gives you static types and powerful tooling in Visual Studio Code including autocompletion and useful inline warnings for type errors.
+## 🚀 What does those do?
+
+Expo is for reducing the boilerplate and getting fast into development, without the pain of installing and connecting libraries.
+
+Expo DeviceMotion for getting device motion for moving the ball with the phone movement.
+
+React Native Game Engine for rendering the game and controlling the updating of the game world.
+
+Matter.JS for handling the physics engine especially for the contact calculation and ball movement calculations.
 
 ## 🚀 How to use
 
 #### Creating a new project
 
-- Install the CLI: `npm i -g expo-cli`
-- Create a project: `npx create-react-native-app -t with-typescript`
-- `cd` into the project
+For installing all the dependencies use
+
+```sh
+npm install | yarn install
+```
+
+After that just `yarn start | npm run start`
+
+### Known bugs
+
+- Sometimes the values are spawned outside of the screen
+- Game engine does not get destroyed on unmount on sometimes -> Will calculate the ball movement unncessary
+- Spawning could be improved by making empty segment, where it would be spawned after collection, instead of same segment.
+- Probably bunch of others
 
 ### Adding TypeScript to existing projects
 

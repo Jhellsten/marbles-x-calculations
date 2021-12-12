@@ -1,32 +1,34 @@
 {
-	"expo": {
-		"name": "Marbles Game",
-		"slug": "marbles-game",
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/icon.png",
-		"splash": {
-			"image": "./assets/splash.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#ffffff"
-		},
-		"updates": {
-			"fallbackToCacheTimeout": 0
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"supportsTablet": true
-		},
-		"android": {
-			"adaptiveIcon": {
-				"foregroundImage": "./assets/adaptive-icon.png",
-				"backgroundColor": "#FFFFFF"
-			}
-		},
-		"web": {
-			"favicon": "./assets/favicon.png"
-		},
-		"description": "This is app for mobile development course on Haaga-Helia University of Applied Sciences",
-		"githubUrl": "https://github.com/Jhellsten/hh-mobiiliohjelmointi"
-	}
+  "expo": {
+    "name": "Marbles x Calculations",
+    "slug": "marbles-x-calculations",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "description": "This is app for mobile development course on Haaga-Helia University of Applied Sciences\n\nYou can control marbles ball with position of your phone and collect numbers in order",
+    "githubUrl": "https://github.com/Jhellsten/marbles-x-calculations"
+  }
 }
