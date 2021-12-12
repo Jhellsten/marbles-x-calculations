@@ -66,8 +66,8 @@ export default function HighScoreList() {
 				hard.push({ id: doc.id, nickname, score, difficulty })
 			}
 		})
-		easy.sort((a, b) => b.score - a.score)
-		hard.sort((a, b) => b.score - a.score)
+		easy.sort((a, b) => b.score - a.score).slice(0, 9)
+		hard.sort((a, b) => b.score - a.score).slice(0, 9)
 		setEasyList(easy)
 		setHardList(hard)
 	}
@@ -104,7 +104,7 @@ export default function HighScoreList() {
 							bottomDivider
 						>
 							<ListItem.Content>
-								<ListItem.Title>{title}</ListItem.Title>
+								<ListItem.Title>{`${title} Top 10 list`}</ListItem.Title>
 							</ListItem.Content>
 						</ListItem>
 					)}
