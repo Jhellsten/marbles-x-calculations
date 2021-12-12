@@ -158,25 +158,28 @@ export default class MarblesGame extends PureComponent<
 			: Math.ceil(Math.random() * 1000)
 	}
 
-	_subscribe = () => {
+	_subscribe = async () => {
 		this.props.route.params?.difficulty === 'easy' ? this._slow() : this._fast()
-		this.setState({
-			subscription: DeviceMotion.addListener(
-				(deviceMotion: DeviceMotionMeasurement) => {
-					// Alpha is Z axis and beta is X axis and gamma Y axis
-					const { beta, gamma } = deviceMotion.rotation
+		const isAvailable = await DeviceMotion.isAvailableAsync()
+		if (isAvailable) {
+			this.setState({
+				subscription: DeviceMotion.addListener(
+					(deviceMotion: DeviceMotionMeasurement) => {
+						// Alpha is Z axis and beta is X axis and gamma Y axis
+						const { beta, gamma } = deviceMotion.rotation
 
-					Matter.Body.applyForce(
-						ball,
-						{
-							x: ball.position.x,
-							y: ball.position.y,
-						},
-						{ x: gamma / 1000, y: beta / 1000 }
-					)
-				}
-			),
-		})
+						Matter.Body.applyForce(
+							ball,
+							{
+								x: ball.position.x,
+								y: ball.position.y,
+							},
+							{ x: gamma / 1000, y: beta / 1000 }
+						)
+					}
+				),
+			})
+		}
 	}
 
 	componentDidMount() {
@@ -368,12 +371,11 @@ export default class MarblesGame extends PureComponent<
 
 	componentWillUnmount() {
 		this._unsubscribe()
-		this.engine.enabled = false
 	}
 
 	_unsubscribe = () => {
 		this.state.subscription && this.state.subscription.remove()
-		this.setState({ running: false })
+		// this.setState({ running: false })
 	}
 
 	_renderStartGameModal = () => (
@@ -409,7 +411,12 @@ export default class MarblesGame extends PureComponent<
 						/>
 						<CustomButton
 							text={'To main menu'}
-							handlePress={() => this.props.navigation.replace('Home')}
+							handlePress={() =>
+								this.props.navigation.reset({
+									index: 0,
+									routes: [{ name: 'Home' }],
+								})
+							}
 						/>
 					</View>
 				</View>
@@ -447,7 +454,12 @@ export default class MarblesGame extends PureComponent<
 						/>
 						<CustomButton
 							text={'To main menu'}
-							handlePress={() => this.props.navigation.replace('Home')}
+							handlePress={() =>
+								this.props.navigation.reset({
+									index: 0,
+									routes: [{ name: 'Home' }],
+								})
+							}
 						/>
 					</View>
 				</View>
@@ -494,7 +506,12 @@ export default class MarblesGame extends PureComponent<
 						/>
 						<CustomButton
 							text={'To main menu'}
-							handlePress={() => this.props.navigation.replace('Home')}
+							handlePress={() =>
+								this.props.navigation.reset({
+									index: 0,
+									routes: [{ name: 'Home' }],
+								})
+							}
 						/>
 					</View>
 				</View>

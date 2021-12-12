@@ -1,12 +1,29 @@
 import { LinearGradient } from 'expo-linear-gradient'
+import { DeviceMotion } from 'expo-sensors'
 import { StatusBar } from 'expo-status-bar'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { ScreenWidth } from 'react-native-elements/dist/helpers'
 import { RouteNavigationProps } from '../App'
 import CustomButton from '../components/CustomButton'
 
 export default function Home({ navigation }: RouteNavigationProps<'Home'>) {
+	useEffect(() => {
+		const askPermission = async () => {
+			try {
+				const { granted } = await DeviceMotion.getPermissionsAsync()
+				if (granted) {
+					const canUse = await DeviceMotion.isAvailableAsync()
+					if (!canUse) {
+						alert('Device motion is not usable :(, you cannot play this game')
+					}
+				}
+			} catch (error) {
+				alert('Error on asking device permissions')
+			}
+		}
+		askPermission()
+	}, [])
 	return (
 		<View style={styles.container}>
 			<LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']}>
