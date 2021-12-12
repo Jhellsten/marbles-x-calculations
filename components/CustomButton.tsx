@@ -6,15 +6,17 @@ interface Props {
 	handlePress: (...args: any[]) => any
 	text: string
 	icon?: string
+	disabled?: boolean
 }
 
-const CustomButton = ({ handlePress, text, icon }: Props) => {
+const CustomButton = ({ handlePress, text, icon, disabled }: Props) => {
 	return icon ? (
 		<Button
 			title={text}
 			titleStyle={styles.buttonText}
 			onPress={() => handlePress('-')}
 			// style={styles.button}
+			disabled={disabled}
 			icon={
 				<Icon
 					name={icon}

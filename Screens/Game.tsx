@@ -32,6 +32,19 @@ import { ScreenHeight, ScreenWidth } from 'react-native-elements/dist/helpers'
 import CustomButton from '../components/CustomButton'
 import { NavigationProp } from '@react-navigation/core'
 import { StackScreenProps } from '@react-navigation/stack'
+import { addDoc } from '@firebase/firestore'
+import { initializeApp } from 'firebase/app'
+import { collection, getFirestore } from 'firebase/firestore'
+import {
+	apiKey,
+	authDomain,
+	projectId,
+	storageBucket,
+	measurementId,
+	messagingSenderId,
+	appId,
+} from '../env'
+import CustomInput from '../components/Input'
 
 const BlockWOffset = BALL_SIZE / 2
 const BlockHOffset = BALL_SIZE / 2 + 50
@@ -47,8 +60,21 @@ type State = {
 	isGameStarted: boolean
 	isGamePaused: boolean
 	running: boolean
+	nickname: string
 	entities: { [key: string]: any }
 }
+const firebaseConfig = {
+	apiKey,
+	authDomain,
+	projectId,
+	storageBucket,
+	measurementId,
+	messagingSenderId,
+	appId,
+}
+
+const app = initializeApp(firebaseConfig)
+const database = getFirestore(app)
 
 export default class MarblesGame extends PureComponent<
 	RootStackParamList['Marbles game'] & StackScreenProps<RootStackParamList>,
@@ -83,12 +109,34 @@ export default class MarblesGame extends PureComponent<
 			isGameStarted: false,
 			running: false,
 			isGamePaused: false,
+			nickname: '',
 		}
 	}
 
 	engine = Matter.Engine.create({ enableSleeping: false, gravity: {} })
 
 	world = this.engine.world
+
+	_handleSaveScore = (item: any) => {
+		try {
+			this._saveScoreItem(item)
+		} catch (error) {
+			alert(error)
+		}
+	}
+
+	_saveScoreItem = async ({ nickname, score, difficulty }: any) => {
+		try {
+			await addDoc(collection(database, 'marbles-highscores'), {
+				nickname,
+				score,
+				difficulty,
+			})
+			this.props.navigation.navigate('Home')
+		} catch (error) {
+			alert(error)
+		}
+	}
 
 	_slow = () => {
 		DeviceMotion.setUpdateInterval(40)
@@ -293,11 +341,6 @@ export default class MarblesGame extends PureComponent<
 						numbers.push(value['number'])
 					}
 				})
-				console.log(
-					this.state.entities[objB.label].number,
-					numbers,
-					Math.min(...numbers)
-				)
 				const newValue = this._coinValueRandomizer(
 					this.props.route.params?.difficulty
 				)
@@ -425,13 +468,27 @@ export default class MarblesGame extends PureComponent<
 					<Text style={styles.modalText}>
 						{`Your score was ${this.state.score}, not too bad!`}
 					</Text>
+					{this.state.score && (
+						<>
+							<Text style={styles.modalText}>
+								{`If you want to save your score, put your nickname here!`}
+							</Text>
+							<CustomInput
+								handleChange={(e) => this.setState({ nickname: e })}
+								value={this.state.nickname}
+							/>
+						</>
+					)}
+
 					<View style={styles.modalButtons}>
 						<CustomButton
 							text={'Save scores'}
+							disabled={this.state.nickname.length < 3}
 							handlePress={() =>
-								this.setState({
-									isGameStarted: true,
-									running: true,
+								this._saveScoreItem({
+									nickname: this.state.nickname,
+									score: this.state.score,
+									difficulty: this.props.route.params?.difficulty,
 								})
 							}
 						/>

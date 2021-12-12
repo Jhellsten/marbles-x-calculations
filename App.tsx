@@ -23,7 +23,17 @@ export default function App() {
 
 	return (
 		<NavigationContainer>
-			<Stack.Navigator screenOptions={{ animationEnabled: true }}>
+			<Stack.Navigator
+				screenOptions={{
+					animationEnabled: true,
+					headerStyle: { backgroundColor: '#4c669f' },
+					headerTitleStyle: {
+						color: 'white',
+					},
+					headerBackTitleStyle: { color: 'white' },
+					headerTintColor: 'white',
+				}}
+			>
 				<Stack.Screen name='Home' component={Home} />
 				<Stack.Screen
 					name='Marbles game'
